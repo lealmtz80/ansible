@@ -1,0 +1,19 @@
+---
+- name: Patch RHEL systems safely
+  hosts: XPEAZABIX.csc.fmx
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Update all packages
+      dnf:
+        name: "*"
+        state: latest
+      register: patch_result
+
+  post_tasks:
+    - name: Display patch summary
+      debug:
+        msg:
+          - "Packages updated: {{ patch_result.changed }}"
+
