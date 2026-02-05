@@ -20,6 +20,7 @@
         username: "admin"
         password: "Forlan734"
         server_url: "https://cscsatapp.csc.fmx"
+        activation_keys: 
         validate_certs: false
       register: command
       delegate_to: localhost
