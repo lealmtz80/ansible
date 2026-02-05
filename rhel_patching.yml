@@ -13,12 +13,14 @@
       register: patch_result
       ignore_errors: true
       
+      
 # This needs to run on a host with API access
     - name: "Generate registration command"
       redhat.satellite.registration_command:
         username: "admin"
         password: "Forlan734"
         server_url: "https://cscsatapp.csc.fmx"
+        validate_certs: false
       register: command
       delegate_to: localhost
 
