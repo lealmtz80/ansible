@@ -11,6 +11,7 @@
         state: latest
         download_only: true
       register: patch_result
+      ignore_errors: true
       
 # This needs to run on a host with API access
     - name: "Generate registration command"
