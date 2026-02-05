@@ -11,7 +11,21 @@
         state: latest
         download_only: true
       register: patch_result
+      
+# This needs to run on a host with API access
+  - name: "Generate registration command"
+    redhat.satellite.registration_command:
+      username: "admin"
+      password: "Forlan734"
+      server_url: "https://cscsatapp.csc.fmx"
+    register: command
+    delegate_to: localhost
 
+# This needs to run on the host being registered
+  - name: "Perform registration"
+    ansible.builtin.shell:
+      cmd: "{{ command.registration_command }}"
+      
   post_tasks:
     - name: Display patch summary
       debug:
