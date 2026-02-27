@@ -1,0 +1,28 @@
+---
+- name: Gather and display Ansible facts
+  hosts: ALL 
+  gather_facts: yes
+  become: false
+
+  tasks:
+
+    - name: Mostar hostname
+      ansible.builtin.debug:
+        var: ansible_facts['hostname']
+
+    - name: Mostrar distribución de OS
+      ansible.builtin.debug:
+        msg: "OS: {{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_version'] }}"
+
+    - name: Mostrar Dirección IP
+      ansible.builtin.debug:
+        var: ansible_facts['default_ipv4']['address']
+
+    - name: Mostrar memoria Total (MB)
+      ansible.builtin.debug:
+        var: ansible_facts['memtotal_mb']
+
+    - name: Mostrar cores CPU
+      ansible.builtin.debug:
+        var: ansible_facts['processor_vcpus']
+
