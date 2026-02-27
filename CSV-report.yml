@@ -1,0 +1,43 @@
+---
+- name: Generate CSV report
+  hosts: all
+
+  vars:
+    report_path: "./reports"
+    report_filename: "host_report_{{ lookup('pipe', 'date +%Y%m%d%H%M') }}.csv"
+    search_pattern: "^#?PASS_WARN_AGE"
+
+  tasks:
+    - name: Ensure report directory exists
+      file:
+        path: "{{ report_path }}"
+        state: directory
+        mode: 0755
+        owner: cstiadm
+      delegate_to: localhost
+      run_once: true
+
+    - name: Check Warning Days
+      ansible.builtin.shell: grep ^PASS_WARN_AGE /etc/login.defs | awk '{print $2}'
+      register: WarningDays
+
+    - name: Check password expiration
+      ansible.builtin.shell: grep ^PASS_MAX_DAYS /etc/login.defs | awk '{print $2}'
+      register: PasswordExperition
+
+    - name: Create CSV file and add header
+      lineinfile:
+        dest: "{{ report_path }}/{{ report_filename }}"
+        line: "Hostname,OSname,OSversion,PASS_WARN_AGE,PASS_MAX_DAYS"
+        create: yes
+        state: present
+      delegate_to: localhost
+      run_once: yes
+
+    - name: Add host data to CSV
+      lineinfile:
+        dest: "{{ report_path }}/{{ report_filename }}"
+        line: "{{ ansible_facts.hostname }},{{ ansible_facts.distribution }},{{ ansible_facts.distribution_version }},{{ WarningDays.stdout }},{{ PasswordExperition.stdout }}"
+        insertafter: EOF
+      delegate_to: localhost
+...
