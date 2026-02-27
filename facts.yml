@@ -1,6 +1,6 @@
 ---
 - name: Gather and display Ansible facts
-  hosts: ALL 
+  hosts: all
   gather_facts: yes
   become: false
 
