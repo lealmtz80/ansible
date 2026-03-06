@@ -14,7 +14,7 @@
         state: directory
         mode: 0755
         owner: cstiadm
-      delegate_to: localhost
+      delegate_to: cscsatdb.csc.fmx
       run_once: true
 
     - name: Check Warning Days
@@ -31,7 +31,7 @@
         line: "Hostname,OSname,OSversion,PASS_WARN_AGE,PASS_MAX_DAYS"
         create: yes
         state: present
-      delegate_to: localhost
+      delegate_to: cscsatdb.csc.fmx
       run_once: yes
 
     - name: Add host data to CSV
@@ -39,5 +39,5 @@
         dest: "{{ report_path }}/{{ report_filename }}"
         line: "{{ ansible_facts.hostname }},{{ ansible_facts.distribution }},{{ ansible_facts.distribution_version }},{{ WarningDays.stdout }},{{ PasswordExperition.stdout }}"
         insertafter: EOF
-      delegate_to: localhost
+      delegate_to: cscsatdb.csc.fmx
 ...
