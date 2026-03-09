@@ -1,6 +1,6 @@
 ---
 - name: Patch RHEL systems safely
-  hosts: XPEAZABIX.csc.fmx
+  hosts: vmxpepoctest01
   become: true
   gather_facts: true
 
