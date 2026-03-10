@@ -19,7 +19,7 @@
       redhat.satellite.registration_command:
         username: "admin"
         password: "Forlan734"
-        server_url: "https://cscsatapp.csc.fmx"
+        server_url: "https://10.50.32.183"
         activation_keys: xpe-x86_64-rh9
         force: yes
         validate_certs: false
