@@ -1,0 +1,19 @@
+---
+- name: Patch, reboot and verufy all mounted filesystem
+  hosts: PARCHES
+
+  tasks:
+    - name: Ensure all filesystems in fstab are mounted
+      command: mount -a
+      register: mount_result
+      changed_when: false
+
+    - name: downloadonly
+      dnf:
+        name: "*"
+        state: latest
+        download_only: true
+
+
+
+...
