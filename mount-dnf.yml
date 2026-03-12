@@ -1,6 +1,6 @@
 ---
 - name: Patch, reboot and verufy all mounted filesystem
-  hosts: PARCHES
+  hosts: cscsatdb.csc.fmx
 
   tasks:
     - name: Ensure all filesystems in fstab are mounted
